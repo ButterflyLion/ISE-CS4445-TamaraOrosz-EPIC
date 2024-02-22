@@ -1,10 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { incremented } from "./features/counter/counter-slice";
+
+import "./style.css";
+import Dashboard from "./Dashboard";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { config } from "./GraphConfig";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
+
+  function handleClick() {
+    dispatch(incremented());
+  }
 
   return (
     <>
@@ -18,7 +29,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={handleClick}>
           count is {count}
         </button>
         <p>
@@ -28,8 +39,9 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <Dashboard config={config} />;
     </>
-  )
+  );
 }
 
-export default App
+export default App;
