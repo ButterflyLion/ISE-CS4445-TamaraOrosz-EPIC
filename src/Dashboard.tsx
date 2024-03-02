@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Dashboards from '@highcharts/dashboards/es-modules/masters/dashboards.src.js';
 import DataGrid from '@highcharts/dashboards/es-modules/DataGrid/DataGrid';
 import Highcharts from 'highcharts/es-modules/masters/highcharts.src.js';
