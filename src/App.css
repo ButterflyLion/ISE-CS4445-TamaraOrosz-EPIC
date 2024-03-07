@@ -1,40 +1,37 @@
 .App {
-  display: grid;
+
 }
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.footer {
+  background-color: rgb(33, 37, 41);
+  align-self: end;
+  grid-column: 2;
+  padding: 20px;
   text-align: center;
+  color: white;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.footer a {
+  color: pink;
+  text-decoration: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container {
+  /* display: grid;
+  grid-gap: 1em 0;
+  grid: auto auto 1fr / 10vw 1fr 10vw;
+  margin: 0;
+  min-height: calc(100vh - 40px); */
+  padding-top: 30px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.2);
+  margin: 20px;
+  vertical-align: middle;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.container button {
+  margin: 10px;
 }
 
 .card {

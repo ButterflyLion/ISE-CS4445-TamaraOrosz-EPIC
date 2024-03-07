@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./app/store.ts";
 
 import App from "./App.tsx";
+import "./App.css";
 
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter } from "react-router-dom";
