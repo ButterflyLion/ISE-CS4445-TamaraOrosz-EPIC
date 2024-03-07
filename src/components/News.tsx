@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFetchNewsQuery } from "./features/news/news-api-slice";
+import { useFetchNewsQuery } from "../features/news/news-api-slice";
 
 function News(){
     const [newsSubject, setNewsSubject] = useState("music");

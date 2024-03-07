@@ -1,10 +1,10 @@
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { CDBIcon } from "cdbreact";
+import { Navbar, Nav } from "react-bootstrap";
 
 const Navigation = () => {
   return (
     <div>
       <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
-        <Container>
           <Navbar.Brand href="/">
             <img
               alt=""
@@ -21,10 +21,9 @@ const Navigation = () => {
               <Nav.Link href="/about">About</Nav.Link>
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
               <Nav.Link href="/news">News</Nav.Link>
-              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/login"><CDBIcon className="me-2" icon="user" />Log In</Nav.Link>
             </Nav>
           </Navbar.Collapse>
-        </Container>
       </Navbar>
     </div>
   );

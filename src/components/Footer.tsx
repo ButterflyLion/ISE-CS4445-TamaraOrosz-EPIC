@@ -14,7 +14,12 @@ function Footer() {
             <CDBBox>
               <a href="/" className="d-flex align-items-center p-0 text-dark">
                 <img alt="logo" src="public/FestiFob-logo.svg" width="40px" />
-                <span className="ms-3 h5 font-weight-bold" style={{ color: "white" }}>FestiFob</span>
+                <span
+                  className="ms-3 h5 font-weight-bold"
+                  style={{ color: "white" }}
+                >
+                  FestiFob
+                </span>
               </a>
               <p className="my-3" style={{ width: "250px", textAlign: "left" }}>
                 Helping you stay safe during festival season.
@@ -32,8 +37,6 @@ function Footer() {
                 <a href="/">Resources</a>
                 <a href="/about">About</a>
                 <a href="/">Contact</a>
-                <a href="/">Blog</a>
-                <a href="/">FAQ</a>
                 <a href="/news">News</a>
               </CDBBox>
             </CDBBox>
@@ -46,9 +49,9 @@ function Footer() {
                 flex="column"
                 style={{ cursor: "pointer", padding: "0" }}
               >
-                <a href="/">Support</a>
-                <a href="/">Sign Up</a>
-                <a href="/login">Sign In</a>
+                <a href="/">FAQ & Support</a>
+                <a href="/signup">Sign Up</a>
+                <a href="/login">Log In</a>
               </CDBBox>
             </CDBBox>
             <CDBBox>
