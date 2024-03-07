@@ -7,6 +7,7 @@ import { config } from "./GraphConfig";
 import News from "./News";
 import SignUp from "./SignUp";
 import Login from "./LogIn";
+import RegisterFob from "./RegisterFob";
 
 function GlobalNavigation() {
   return (
@@ -20,6 +21,7 @@ function GlobalNavigation() {
         <Route path="*" element={<h1>Not Found</h1>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register-fob" element={<RegisterFob />} />
       </Routes>
     </div>
   );

@@ -49,9 +49,10 @@ function Footer() {
                 flex="column"
                 style={{ cursor: "pointer", padding: "0" }}
               >
-                <a href="/">FAQ & Support</a>
                 <a href="/signup">Sign Up</a>
                 <a href="/login">Log In</a>
+                <a href="/">FAQ & Support</a>
+                <a href="/register-fob">Register Your Fob</a>
               </CDBBox>
             </CDBBox>
             <CDBBox>
