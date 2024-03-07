@@ -1,8 +1,8 @@
 import "./App.css";
-import "./style.css";
+import "./components/style.css";
 
-import GlobalNavigation from "./GlobalNavigation";
-import Footer from "./Footer";
+import GlobalNavigation from "./components/GlobalNavigation";
+import Footer from "./components/Footer";
 
 function App() {
   return (
