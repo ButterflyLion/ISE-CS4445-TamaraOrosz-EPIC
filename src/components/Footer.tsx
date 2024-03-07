@@ -13,7 +13,7 @@ function Footer() {
           <CDBBox display="flex" justifyContent="between" className="flex-wrap">
             <CDBBox>
               <a href="/" className="d-flex align-items-center p-0 text-dark">
-                <img alt="logo" src="public/FestiFob-logo.svg" width="40px" />
+                <img alt="logo" src="/FestiFob-logo.svg" width="40px" />
                 <span
                   className="ms-3 h5 font-weight-bold"
                   style={{ color: "white" }}

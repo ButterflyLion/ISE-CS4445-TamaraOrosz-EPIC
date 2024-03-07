@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Container } from "react-bootstrap";
 
 function Login() {
   const [state, setState] = useState({
@@ -20,40 +21,48 @@ function Login() {
   };
 
   return (
-    <>
-      <div className="container">
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="form-label">Email address</label>
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="Enter email"
-              value={state.email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Enter password"
-              value={state.password}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+    <Container className="d-flex flex-column align-items-center container-narrow">
+      <img alt="logo" src="FestiFob-logo.svg" width="60px" />
+      <h1>Login</h1>
+      <p>Enter your email address and password to log in.</p>
+      <form className="w-md-50" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label className="form-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            placeholder="Enter email"
+            value={state.email}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            className="form-control"
+            placeholder="Enter password"
+            value={state.password}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="d-flex flex-column">
+          <a href="/forgot-password" className="mb-3">
+            Forgot password?
+          </a>
           <button type="submit" className="btn btn-primary">
-            Login
+            Sign In
           </button>
-        </form>
-      </div>
-    </>
+          <p>
+            Don't have an account? <a href="/signup">Sign up here</a>
+          </p>
+        </div>
+      </form>
+    </Container>
   );
 }
 export default Login;
