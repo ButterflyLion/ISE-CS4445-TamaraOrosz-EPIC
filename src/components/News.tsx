@@ -1,44 +1,45 @@
 import { useState } from "react";
 import { useFetchNewsQuery } from "../features/news/news-api-slice";
+import { Spinner, Container, Form } from "react-bootstrap";
+import Article from "./Article";
 
-function News(){
-    const [newsSubject, setNewsSubject] = useState("music");
-    const { data = {}, isFetching } = useFetchNewsQuery(newsSubject);
-    
-    return (
+function News() {
+  const [newsSubject, setNewsSubject] = useState("music");
+  const { data: data = {}, isFetching } = useFetchNewsQuery(newsSubject);
+
+  return (
+    <div>
+      {isFetching ? (
         <div>
-            <div>
-                <h2>News subject to fetch:</h2>
-                <select
-                    value={newsSubject}
-                    onChange={(e) => setNewsSubject(e.target.value)}
-                >
-                    <option value="festival">Festival</option>
-                    <option value="music">Music</option>
-                    <option value="concert">Concert</option>
-                    <option value="alcohol">Alcohol</option>
-                </select>
-            </div>
-            <div>
-                {data.articles && data.articles.map((news: any) => (
-                    <>
-                        <div className="card-image">
-                            <img src={news.urlToImage} alt={news.title} height={250} />
-                            <span className="card-title">{news.source.name}</span>
-                        </div>
-                        <div className="card-content">
-                            <p>{news.title}</p>
-                        </div>
-                        <div className="card-action">
-                            <a href={news.url} target="_blank" rel="noreferrer">
-                                Full article
-                            </a>
-                        </div>
-                    </>
-                ))}
-            </div>
+          <Spinner />
+          <span>Fetching news...</span>
         </div>
-    )
+      ) : (
+        <>
+          <Container className="d-flex flex-column align-items-center container-narrow">
+            <h1>News</h1>
+            <Form>
+              <Form.Group>
+                <Form.Label>News subject to fetch:</Form.Label>
+                <Form.Select
+                  value={newsSubject}
+                  onChange={(e) => setNewsSubject(e.target.value)}
+                >
+                  <option value="festival">Festival</option>
+                  <option value="music">Music</option>
+                  <option value="concert">Concert</option>
+                  <option value="alcohol">Alcohol</option>
+                </Form.Select>
+              </Form.Group>
+            </Form>
+            {data?.articles?.map((article: any, index: number) => (
+              <Article key={index} article={article} />
+            ))}
+          </Container>
+        </>
+      )}
+    </div>
+  );
 }
 
 export default News;
