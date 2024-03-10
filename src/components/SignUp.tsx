@@ -18,7 +18,7 @@ function Signup() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     console.log("Submitting form");
   };
@@ -31,7 +31,7 @@ function Signup() {
     Array.prototype.forEach.call(forms, (form) => {
       form.addEventListener(
         "submit",
-        (event) => {
+        (event: any) => {
           if (!form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import intlTelInput from "intl-tel-input";
 import "intl-tel-input/build/css/intlTelInput.css";
-import { Container } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 
 function RegisterFob() {
   const [state, setState] = useState({
@@ -21,7 +21,7 @@ function RegisterFob() {
     tNcAccepted: false,
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target;
     setState((prevProps) => ({
       ...prevProps,
@@ -29,14 +29,14 @@ function RegisterFob() {
     }));
   };
 
-  const handleTNCChange = (event) => {
+  const handleTNCChange = (event: any) => {
     setState((prevState) => ({
       ...prevState,
       tNcAccepted: event.target.checked,
     }));
   };
 
-  const handleLanguageChange = (event) => {
+  const handleLanguageChange = (event: any) => {
     const { name, value } = event.target;
     if (value === "Other") {
       setState((prevLanguage) => ({
@@ -52,7 +52,7 @@ function RegisterFob() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     console.log("Submitting form");
   };
@@ -65,7 +65,7 @@ function RegisterFob() {
     Array.prototype.forEach.call(forms, (form) => {
       form.addEventListener(
         "submit",
-        (event) => {
+        (event: any) => {
           if (!form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
@@ -95,20 +95,19 @@ function RegisterFob() {
   return (
     <Container className="d-flex flex-column align-items-center container-narrow">
       <h1 className="containerTitle">Register your fob here</h1>
-      <form
+      <Form
         className="needs-validation w-50"
         onSubmit={handleSubmit}
         noValidate
         id="applicationForm"
       >
-        <div className="form-group">
+        <Form.Group>
           <div className="row">
             <div className="col">
-              <label className="form-label">First Name</label>
-              <input
+              <Form.Label className="form-label">First Name</Form.Label>
+              <Form.Control
                 type="text"
                 name="fName"
-                className="form-control"
                 id="inputFname"
                 placeholder="Enter your first name"
                 value={state.fName}
@@ -117,11 +116,10 @@ function RegisterFob() {
               />
             </div>
             <div className="col">
-              <label className="form-label">Last Name</label>
-              <input
+              <Form.Label className="form-label">Last Name</Form.Label>
+              <Form.Control
                 type="text"
                 name="lName"
-                className="form-control"
                 id="inputLname"
                 placeholder="Enter your last name"
                 value={state.lName}
@@ -130,59 +128,56 @@ function RegisterFob() {
               />
             </div>
           </div>
-        </div>
+        </Form.Group>
 
-        <div className="form-group">
-          <label className="form-label">Date of Birth</label>
-          <input
+        <Form.Group>
+          <Form.Label className="form-label">Date of Birth</Form.Label>
+          <Form.Control
             type="date"
             name="dob"
-            className="form-control"
             id="dob"
             value={state.dob}
             onChange={handleInputChange}
             required
           />
-        </div>
+        </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="inputAddress">Address</label>
-          <input
+        <Form.Group>
+          <Form.Label htmlFor="inputAddress">Address</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             id="inputAddress"
             placeholder="1234 Main St"
             value={state.address1}
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="inputAddress2">Address line 2</label>
-          <input
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label htmlFor="inputAddress2">Address line 2</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             id="inputAddress2"
             placeholder="Apartment, studio, or floor"
             value={state.address2}
             onChange={handleInputChange}
           />
-        </div>
-        <div className="form-group">
+        </Form.Group>
+        <Form.Group>
           <div className="row">
             <div className="form-group col-md-6">
-              <label htmlFor="inputCity">City</label>
-              <input
+              <Form.Label htmlFor="inputCity">City</Form.Label>
+              <Form.Control
                 type="text"
-                className="form-control"
                 id="inputCity"
                 value={state.city}
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-group col-md-4">
-              <label htmlFor="inputState">County</label>
-              <select
+              <Form.Label htmlFor="inputState">County</Form.Label>
+              <Form.Select
                 id="inputState"
                 className="form-control"
                 value={state.county}
@@ -190,26 +185,24 @@ function RegisterFob() {
               >
                 <option selected>Choose...</option>
                 <option>...</option>
-              </select>
+              </Form.Select>
             </div>
             <div className="form-group col-md-2">
-              <label htmlFor="inputZip">Postcode</label>
-              <input
+              <Form.Label htmlFor="inputZip">Postcode</Form.Label>
+              <Form.Control
                 type="text"
-                className="form-control"
                 id="inputZip"
                 value={state.postcode}
                 onChange={handleInputChange}
               />
             </div>
           </div>
-        </div>
+        </Form.Group>
 
-        <div className="form-group">
-          <label className="form-label">Preferred language</label>
-          <select
+        <Form.Group>
+          <Form.Label className="form-label">Preferred language</Form.Label>
+          <Form.Select
             name="language"
-            className="form-control selectpicker"
             id="language"
             value={state.language}
             onChange={handleLanguageChange}
@@ -219,17 +212,17 @@ function RegisterFob() {
             <option>Spanish</option>
             <option>French</option>
             <option>Other</option>
-          </select>
+          </Form.Select>
           {state.language === "Other" && (
-            <input
+            <Form.Control
               name="otherLanguage"
-              className="form-control"
               id="otherLanguage"
               value={state.otherLanguage}
               onChange={handleLanguageChange}
+              placeholder="Enter your preferred language"
             />
           )}
-        </div>
+        </Form.Group>
 
         <fieldset className="form-group">
           <div className="row">
@@ -246,9 +239,9 @@ function RegisterFob() {
                   value={state.accessToComputer}
                   required
                 />
-                <label className="form-check-label" htmlFor="gridRadios1">
+                <Form.Label className="form-check-label" htmlFor="gridRadios1">
                   Yes
-                </label>
+                </Form.Label>
               </div>
               <div className="form-check">
                 <input
@@ -259,21 +252,19 @@ function RegisterFob() {
                   value={state.accessToComputer}
                   // onChange={}
                 />
-                <label className="form-check-label" htmlFor="gridRadios2">
+                <Form.Label className="form-check-label" htmlFor="gridRadios2">
                   No
-                </label>
+                </Form.Label>
               </div>
             </div>
           </div>
         </fieldset>
-        <pre>{state.accessToComputer}</pre>
 
         <div className="input-group">
-          <label className="form-label">Phone number</label>
-          <input
+          <Form.Label className="form-label">Phone number</Form.Label>
+          <Form.Control
             type="tel"
             name="phoneNum"
-            className="form-control"
             id="phone"
             value={state.phoneNum}
             onChange={handleInputChange}
@@ -281,47 +272,43 @@ function RegisterFob() {
           />
         </div>
 
-        <div className="form-group">
-          <label className="form-label">Upload document</label>
-          <input
+        <Form.Group>
+          <Form.Label className="form-label">Upload document</Form.Label>
+          <Form.Control
             type="file"
-            className="form-control-file"
             value={state.file}
             onChange={handleInputChange}
           />
-        </div>
+        </Form.Group>
 
         <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
+          <Form.Check
             type="checkbox"
             name="tNcAccepted"
             checked={state.tNcAccepted}
             onChange={handleTNCChange}
             id="invalidCheck"
+            label="I have read and agree to the terms and conditions"
             required
           />
-          <label className="form-check-label" htmlFor="invalidCheck">
-            I have read and agree to the terms and conditions
-          </label>
           <div className="invalid-feedback">You must agree to the T&Cs.</div>
         </div>
 
-        <div className="form-group">
+        <Form.Group>
           <div className="col-xs-9 col-xs-offset-3">
-            <button
+            <Button
               type="submit"
-              className="btn btn-primary"
+              variant="primary"
               name="signup"
               value="Sign up"
               disabled={!state.tNcAccepted}
               onClick={handleSubmit}
             >
               Submit
-            </button>
+            </Button>
           </div>
-        </div>
-      </form>
+        </Form.Group>
+      </Form>
     </Container>
   );
 }
