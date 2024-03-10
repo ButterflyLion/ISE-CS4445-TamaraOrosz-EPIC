@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useFetchNewsQuery } from "../features/news/news-api-slice";
 import { Spinner, Container, Form } from "react-bootstrap";
 import Article from "./Article";
+import { NewsArticle } from "../types/NewsTypes";
 
 function News() {
   const [newsSubject, setNewsSubject] = useState("music");
   const { data: data = {}, isFetching } = useFetchNewsQuery(newsSubject);
+  const newsData: {articles: NewsArticle[]} = data as {articles: NewsArticle[]};
 
   return (
     <div>
@@ -32,7 +34,7 @@ function News() {
                 </Form.Select>
               </Form.Group>
             </Form>
-            {data?.articles?.map((article: any, index: number) => (
+            {newsData.articles?.map((article: any, index: number) => (
               <Article key={index} article={article} />
             ))}
           </Container>

@@ -183,7 +183,7 @@ function RegisterFob() {
                 value={state.county}
                 onChange={handleInputChange}
               >
-                <option selected>Choose...</option>
+                <option value=" ">Choose...</option>
                 <option>...</option>
               </Form.Select>
             </div>
