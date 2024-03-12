@@ -8,13 +8,15 @@ import News from "./News";
 import SignUp from "./SignUp";
 import Login from "./LogIn";
 import RegisterFob from "./RegisterFob";
+import LandingPage from "./LandingPage";
+import ProductPage from "./ProductPage";
 
 function GlobalNavigation() {
   return (
     <div>
       <Navigation />
       <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard config={config} />} />
         <Route path="/news" element={<News />} />
@@ -22,6 +24,7 @@ function GlobalNavigation() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register-fob" element={<RegisterFob />} />
+        <Route path="/buy" element={<ProductPage />} />
       </Routes>
     </div>
   );

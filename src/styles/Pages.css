@@ -1,0 +1,6 @@
+.page-top {
+  display: grid;
+  grid-gap: 1em 0 1em 0;
+  box-shadow: none;
+  border: none;
+}

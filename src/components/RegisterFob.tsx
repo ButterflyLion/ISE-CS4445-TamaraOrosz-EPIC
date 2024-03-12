@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import intlTelInput from "intl-tel-input";
 import "intl-tel-input/build/css/intlTelInput.css";
 import { Button, Container, Form } from "react-bootstrap";
+import "../styles/Forms.css";
 
 function RegisterFob() {
   const [state, setState] = useState({

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import "../styles/Forms.css";
 
 function Signup() {
   const [state, setState] = useState({
