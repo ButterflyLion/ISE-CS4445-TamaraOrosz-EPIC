@@ -1,0 +1,18 @@
+.Chat {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: pink;
+    color: black;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}

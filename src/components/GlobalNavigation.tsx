@@ -10,6 +10,7 @@ import Login from "./LogIn";
 import RegisterFob from "./RegisterFob";
 import LandingPage from "./LandingPage";
 import ProductPage from "./ProductPage";
+import Chat from "./Chat";
 
 function GlobalNavigation() {
   return (
@@ -25,6 +26,7 @@ function GlobalNavigation() {
         <Route path="/login" element={<Login />} />
         <Route path="/register-fob" element={<RegisterFob />} />
         <Route path="/buy" element={<ProductPage />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </div>
   );
