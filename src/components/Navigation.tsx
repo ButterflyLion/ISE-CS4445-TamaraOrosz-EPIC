@@ -26,7 +26,6 @@ const Navigation = () => {
               <CDBIcon className="me-2" icon="user" />
               Log In
             </Nav.Link>
-            <Nav.Link href="/chat">Chat</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

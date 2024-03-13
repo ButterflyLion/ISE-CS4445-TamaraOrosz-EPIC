@@ -34,9 +34,8 @@ function Footer() {
                 display="flex"
                 style={{ cursor: "pointer", padding: "0" }}
               >
-                <a href="/">Resources</a>
                 <a href="/about">About</a>
-                <a href="/">Contact</a>
+                <a href="/contact">Contact</a>
                 <a href="/news">News</a>
               </CDBBox>
             </CDBBox>
@@ -49,9 +48,10 @@ function Footer() {
                 flex="column"
                 style={{ cursor: "pointer", padding: "0" }}
               >
-                <a href="/signup">Sign Up</a>
                 <a href="/login">Log In</a>
-                <a href="/">FAQ & Support</a>
+                <a href="/signup">Sign Up</a>
+                <a href="/">FAQ</a>
+                <a href="/chat">Customer Support</a>
                 <a href="/register-fob">Register Your Fob</a>
               </CDBBox>
             </CDBBox>
@@ -64,7 +64,7 @@ function Footer() {
                 flex="column"
                 style={{ cursor: "pointer", padding: "0" }}
               >
-                <a href="/">Fob</a>
+                <a href="/buy">Fob</a>
               </CDBBox>
             </CDBBox>
           </CDBBox>

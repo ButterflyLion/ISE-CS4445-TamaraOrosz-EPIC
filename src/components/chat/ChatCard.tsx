@@ -8,7 +8,7 @@ import {
   CardHeader,
   Card,
 } from "@mui/material";
-import { blue, grey, pink } from "@mui/material/colors";
+import { grey, pink } from "@mui/material/colors";
 import PersonIcon from "@mui/icons-material/Person";
 import SendIcon from "@mui/icons-material/Send";
 import { Messages } from "./Messages";
