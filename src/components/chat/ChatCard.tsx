@@ -14,7 +14,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { Messages } from "./Messages";
 import { v4 as uid } from "uuid";
 import { useAppDispatch } from "../../app/hooks";
-import { addMessage } from "../../features/messages/messages-slice";
+import { addMessage, removeAllMessages } from "../../features/messages/messages-slice";
 import { styles } from "../consts";
 
 export const ChatCard = ({ user }: { user: any }) => {
@@ -36,6 +36,12 @@ export const ChatCard = ({ user }: { user: any }) => {
     setMessage("");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    dispatch(removeAllMessages());
+    window.location.reload();
+  };
+
   return (
     <Card sx={{ width: "25rem" }} style={styles.cardStyle}>
       <CardHeader
@@ -46,6 +52,11 @@ export const ChatCard = ({ user }: { user: any }) => {
         }
         title={user.name}
         style={styles.bgGradient}
+        action={
+          <Button color="inherit" onClick={handleLogout}>
+            Logout
+          </Button>
+        }
       />
       <CardContent style={{ ...styles.cardContentStyle, overflowY: "auto" }}>
         <Messages userId={user.id} />
@@ -63,7 +74,7 @@ export const ChatCard = ({ user }: { user: any }) => {
           onChange={(e) => setMessage(e.target.value)}
         />
         <Button aria-label="send-message" onClick={postMessage}>
-          <SendIcon />
+          <SendIcon style={{color: pink[200]}} />
         </Button>
       </CardActions>
     </Card>
