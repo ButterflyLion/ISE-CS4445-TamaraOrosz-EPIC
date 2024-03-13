@@ -5,7 +5,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useAppSelector } from "../../app/hooks";
 
 export const Messages = ({ userId }: { userId: string }) => {
-  const { messages } = useAppSelector((state) => state);
+  const messages = useAppSelector((state) => state.messages);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {

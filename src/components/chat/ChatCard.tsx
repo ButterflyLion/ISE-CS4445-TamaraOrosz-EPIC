@@ -14,10 +14,10 @@ import SendIcon from "@mui/icons-material/Send";
 import { Messages } from "./Messages";
 import { v4 as uid } from "uuid";
 import { useAppDispatch } from "../../app/hooks";
-import { addMessage, removeAllMessages } from "../../features/messages/messages-slice";
+import { addMessage } from "../../features/messages/messages-slice";
 import { styles } from "../consts";
 
-export const ChatCard = ({ user }: { user: any }) => {
+export const ChatCard = ({ user, handleLogout }: { user: any, handleLogout: Function }) => {
   const dispatch = useAppDispatch();
   const [message, setMessage] = useState("");
 
@@ -36,10 +36,8 @@ export const ChatCard = ({ user }: { user: any }) => {
     setMessage("");
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    dispatch(removeAllMessages());
-    window.location.reload();
+  const handleLogoutClick = () => {
+    handleLogout(user.name);
   };
 
   return (
@@ -53,7 +51,7 @@ export const ChatCard = ({ user }: { user: any }) => {
         title={user.name}
         style={styles.bgGradient}
         action={
-          <Button color="inherit" onClick={handleLogout}>
+          <Button color="inherit" onClick={handleLogoutClick}>
             Logout
           </Button>
         }

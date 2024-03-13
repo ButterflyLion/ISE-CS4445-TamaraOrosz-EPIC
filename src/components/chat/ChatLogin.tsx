@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const ChatLogin = ({ handleLogin }) => {
+const ChatLogin = ({ handleLogin }: { handleLogin: Function }) => {
   const [name, setName] = useState("");
 
   return (

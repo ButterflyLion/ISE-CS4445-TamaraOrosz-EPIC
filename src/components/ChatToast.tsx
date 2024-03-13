@@ -17,7 +17,7 @@ function ChatToast() {
             alt=""
           />
           <strong className="me-auto">FestiFob Customer Support</strong>
-          <small>Now</small>
+          <small>{`${new Date().getHours()}:${new Date().getMinutes()}`}</small>
         </Toast.Header>
         <Toast.Body>
           Hi there! How can we help you today?
