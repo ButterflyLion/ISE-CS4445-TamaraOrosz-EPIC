@@ -1,5 +1,5 @@
-import "./App.css";
-import "./components/style.css";
+import "./styles/App.css"
+import "./styles/style.css";
 
 import GlobalNavigation from "./components/GlobalNavigation";
 import Footer from "./components/Footer";
