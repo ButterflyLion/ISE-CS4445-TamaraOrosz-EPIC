@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import intlTelInput from "intl-tel-input";
 import "intl-tel-input/build/css/intlTelInput.css";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import "../styles/Forms.css";
 
 function RegisterFob() {
   const [state, setState] = useState({
+    fob: "",
     fName: "",
     lName: "",
     dob: "",
@@ -18,15 +19,77 @@ function RegisterFob() {
     county: "",
     postcode: "",
     accessToComputer: "",
-    file: "",
+    file: null,
     tNcAccepted: false,
   });
+
+  const counties = [
+    "Antrim",
+    "Armagh",
+    "Carlow",
+    "Cavan",
+    "Clare",
+    "Cork",
+    "Derry",
+    "Donegal",
+    "Down",
+    "Dublin",
+    "Fermanagh",
+    "Galway",
+    "Kerry",
+    "Kildare",
+    "Kilkenny",
+    "Laois",
+    "Leitrim",
+    "Limerick",
+    "Longford",
+    "Louth",
+    "Mayo",
+    "Meath",
+    "Monaghan",
+    "Offaly",
+    "Roscommon",
+    "Sligo",
+    "Tipperary",
+    "Tyrone",
+    "Waterford",
+    "Westmeath",
+    "Wexford",
+    "Wicklow",
+  ];
 
   const handleInputChange = (event: any) => {
     const { name, value } = event.target;
     setState((prevProps) => ({
       ...prevProps,
       [name]: value,
+    }));
+  };
+  
+  const handleCountyChange = (event) => {
+    const { value } = event.target;
+    setState(prevState => ({
+      ...prevState,
+      county: value
+    }));
+  };
+
+  const handlePhoneChange = (event) => {
+    const inputTel = document.querySelector<HTMLInputElement>("#phone");
+    if (inputTel) {
+      const phoneNum = inputTel.value;
+      setState((prevProps) => ({
+        ...prevProps,
+        phoneNum: phoneNum,
+      }));
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setState((prevState) => ({
+      ...prevState,
+      file: file,
     }));
   };
 
@@ -54,8 +117,26 @@ function RegisterFob() {
   };
 
   const handleSubmit = (event: any) => {
-    event.preventDefault();
     console.log("Submitting form");
+    event.preventDefault();
+    console.log(state);
+    setState({
+      fob: "",
+      fName: "",
+      lName: "",
+      dob: "",
+      language: "",
+      otherLanguage: "",
+      phoneNum: "",
+      address1: "",
+      address2: "",
+      city: "",
+      county: "",
+      postcode: "",
+      accessToComputer: "",
+      file: null,
+      tNcAccepted: false,
+    });
   };
 
   (() => {
@@ -103,8 +184,22 @@ function RegisterFob() {
         id="applicationForm"
       >
         <Form.Group>
-          <div className="row">
-            <div className="col">
+          <Row>
+            <Col>
+              <Form.Label className="form-label">Fob Number</Form.Label>
+              <Form.Control
+                type="text"
+                name="fob"
+                id="inputFob"
+                placeholder="Enter your fob number"
+                value={state.fob}
+                onChange={handleInputChange}
+                required
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
               <Form.Label className="form-label">First Name</Form.Label>
               <Form.Control
                 type="text"
@@ -115,8 +210,8 @@ function RegisterFob() {
                 onChange={handleInputChange}
                 required
               />
-            </div>
-            <div className="col">
+            </Col>
+            <Col>
               <Form.Label className="form-label">Last Name</Form.Label>
               <Form.Control
                 type="text"
@@ -127,8 +222,8 @@ function RegisterFob() {
                 onChange={handleInputChange}
                 required
               />
-            </div>
-          </div>
+            </Col>
+          </Row>
         </Form.Group>
 
         <Form.Group>
@@ -150,7 +245,7 @@ function RegisterFob() {
             id="inputAddress"
             placeholder="1234 Main St"
             value={state.address1}
-            onChange={handleInputChange}
+            onChange={(e) => setState({ ...state, address1: e.target.value })}
             required
           />
         </Form.Group>
@@ -162,7 +257,7 @@ function RegisterFob() {
             id="inputAddress2"
             placeholder="Apartment, studio, or floor"
             value={state.address2}
-            onChange={handleInputChange}
+            onChange={(e) => setState({ ...state, address2: e.target.value })}
           />
         </Form.Group>
         <Form.Group>
@@ -173,7 +268,7 @@ function RegisterFob() {
                 type="text"
                 id="inputCity"
                 value={state.city}
-                onChange={handleInputChange}
+                onChange={(e) => setState({ ...state, city: e.target.value })}
               />
             </div>
             <div className="form-group col-md-4">
@@ -182,10 +277,12 @@ function RegisterFob() {
                 id="inputState"
                 className="form-control"
                 value={state.county}
-                onChange={handleInputChange}
+                onChange={handleCountyChange}
               >
                 <option value=" ">Choose...</option>
-                <option>...</option>
+                {counties.map((county) => (
+                  <option key={county}>{county}</option>
+                ))}
               </Form.Select>
             </div>
             <div className="form-group col-md-2">
@@ -194,7 +291,7 @@ function RegisterFob() {
                 type="text"
                 id="inputZip"
                 value={state.postcode}
-                onChange={handleInputChange}
+                onChange={(e) => setState({ ...state, postcode: e.target.value })}
               />
             </div>
           </div>
@@ -226,59 +323,48 @@ function RegisterFob() {
         </Form.Group>
 
         <fieldset className="form-group">
-          <div className="row">
-            <legend className="col-form-label">
-              Do you have access to a computer?
-            </legend>
-            <div className="col-sm-10">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="gridRadios"
-                  id="gridRadios1"
-                  value={state.accessToComputer}
-                  required
-                />
-                <Form.Label className="form-check-label" htmlFor="gridRadios1">
-                  Yes
-                </Form.Label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="gridRadios"
-                  id="gridRadios2"
-                  value={state.accessToComputer}
-                  // onChange={}
-                />
-                <Form.Label className="form-check-label" htmlFor="gridRadios2">
-                  No
-                </Form.Label>
-              </div>
-            </div>
-          </div>
+          <Form.Label>
+            Do you have access to a computer?
+          </Form.Label>
+          <Form>
+            <Form.Group>
+              <Form.Check
+                type="radio"
+                name="gridRadios"
+                id="gridRadios1"
+                label="Yes"
+                value={state.accessToComputer}
+                onChange={() => setState({ ...state, accessToComputer: "Yes" })}
+              />
+              <Form.Check
+                type="radio"
+                name="gridRadios"
+                id="gridRadios2"
+                label="No"
+                value={state.accessToComputer}
+                onChange={() => setState({ ...state, accessToComputer: "No" })}
+              />
+            </Form.Group>
+          </Form>
         </fieldset>
 
-        <div className="input-group">
+        <Form.Group>
           <Form.Label className="form-label">Phone number</Form.Label>
           <Form.Control
             type="tel"
             name="phoneNum"
             id="phone"
             value={state.phoneNum}
-            onChange={handleInputChange}
+            onChange={handlePhoneChange}
             required
           />
-        </div>
+        </Form.Group>
 
         <Form.Group>
           <Form.Label className="form-label">Upload document</Form.Label>
           <Form.Control
             type="file"
-            value={state.file}
-            onChange={handleInputChange}
+            onChange={handleFileChange}
           />
         </Form.Group>
 
