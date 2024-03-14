@@ -65,27 +65,16 @@ function RegisterFob() {
       [name]: value,
     }));
   };
-  
-  const handleCountyChange = (event) => {
+
+  const handleCountyChange = (event: any) => {
     const { value } = event.target;
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
-      county: value
+      county: value,
     }));
   };
 
-  const handlePhoneChange = (event) => {
-    const inputTel = document.querySelector<HTMLInputElement>("#phone");
-    if (inputTel) {
-      const phoneNum = inputTel.value;
-      setState((prevProps) => ({
-        ...prevProps,
-        phoneNum: phoneNum,
-      }));
-    }
-  };
-
-  const handleFileChange = (event) => {
+  const handleFileChange = (event: any) => {
     const file = event.target.files[0];
     setState((prevState) => ({
       ...prevState,
@@ -94,9 +83,10 @@ function RegisterFob() {
   };
 
   const handleTNCChange = (event: any) => {
+    const { checked } = event.target;
     setState((prevState) => ({
       ...prevState,
-      tNcAccepted: event.target.checked,
+      tNcAccepted: checked,
     }));
   };
 
@@ -121,6 +111,7 @@ function RegisterFob() {
     event.preventDefault();
     console.log(state);
     setState({
+      ...state,
       fob: "",
       fName: "",
       lName: "",
@@ -170,6 +161,23 @@ function RegisterFob() {
         autoInsertDialCode: true,
         nationalMode: false,
         initialCountry: "ie",
+        formatOnDisplay: true,
+        separateDialCode: true,
+      });
+
+      inputTel.addEventListener("countrychange", () => {
+        setState((prevState) => ({
+          ...prevState,
+          phoneNum: "",
+        }));
+      });
+
+      inputTel.addEventListener("input", (event) => {
+        const inputElement = event.target as HTMLInputElement;
+        setState((prevState) => ({
+          ...prevState,
+          phoneNum: inputElement.value,
+        }));
       });
     }
   }, []);
@@ -291,7 +299,9 @@ function RegisterFob() {
                 type="text"
                 id="inputZip"
                 value={state.postcode}
-                onChange={(e) => setState({ ...state, postcode: e.target.value })}
+                onChange={(e) =>
+                  setState({ ...state, postcode: e.target.value })
+                }
               />
             </div>
           </div>
@@ -323,29 +333,25 @@ function RegisterFob() {
         </Form.Group>
 
         <fieldset className="form-group">
-          <Form.Label>
-            Do you have access to a computer?
-          </Form.Label>
-          <Form>
-            <Form.Group>
-              <Form.Check
-                type="radio"
-                name="gridRadios"
-                id="gridRadios1"
-                label="Yes"
-                value={state.accessToComputer}
-                onChange={() => setState({ ...state, accessToComputer: "Yes" })}
-              />
-              <Form.Check
-                type="radio"
-                name="gridRadios"
-                id="gridRadios2"
-                label="No"
-                value={state.accessToComputer}
-                onChange={() => setState({ ...state, accessToComputer: "No" })}
-              />
-            </Form.Group>
-          </Form>
+          <Form.Label>Do you have access to a computer?</Form.Label>
+          <Form.Group>
+            <Form.Check
+              type="radio"
+              name="gridRadios"
+              id="gridRadios1"
+              label="Yes"
+              value={state.accessToComputer}
+              onChange={() => setState({ ...state, accessToComputer: "Yes" })}
+            />
+            <Form.Check
+              type="radio"
+              name="gridRadios"
+              id="gridRadios2"
+              label="No"
+              value={state.accessToComputer}
+              onChange={() => setState({ ...state, accessToComputer: "No" })}
+            />
+          </Form.Group>
         </fieldset>
 
         <Form.Group>
@@ -355,17 +361,14 @@ function RegisterFob() {
             name="phoneNum"
             id="phone"
             value={state.phoneNum}
-            onChange={handlePhoneChange}
+            onChange={handleInputChange}
             required
           />
         </Form.Group>
 
         <Form.Group>
           <Form.Label className="form-label">Upload document</Form.Label>
-          <Form.Control
-            type="file"
-            onChange={handleFileChange}
-          />
+          <Form.Control type="file" onChange={handleFileChange} />
         </Form.Group>
 
         <div className="form-check form-check-inline">
