@@ -1,22 +1,29 @@
-import { Container } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { NewsArticle } from "../types/NewsTypes";
+import { pink } from "@mui/material/colors";
 
 function Article({ article }: { article: NewsArticle }) {
   return (
-    <Container>
-      <div className="card-image">
-        <img src={article.urlToImage} alt={article.title} height={50} />
-        <span className="card-title">{article.source.name}</span>
-      </div>
-      <div className="card-content">
-        <p>{article.title}</p>
-      </div>
-      <div className="card-action">
-        <a href={article.url} target="_blank" rel="noreferrer">
+    <Card style={{ width: "18rem", margin: "10px", background: pink[50] }}>
+      {article.urlToImage ? (
+        <Card.Img variant="top" src={article.urlToImage} />
+      ) : (
+        <Card.Img
+          variant="top"
+          src={`https://via.placeholder.com/300x200?text=${article.title}`}
+        />
+      )}
+      <Card.Body>
+        <Card.Title>{article.title}</Card.Title>
+        <Card.Text>{article.source.name}</Card.Text>
+        <Button
+          href={article.url}
+          style={{ background: pink[200], border: pink[100] }}
+        >
           Full article
-        </a>
-      </div>
-    </Container>
+        </Button>
+      </Card.Body>
+    </Card>
   );
 }
 

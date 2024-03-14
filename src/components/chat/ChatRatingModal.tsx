@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import { Rating, Box } from "@mui/material";
 
 export const ChatRatingModal = ({
@@ -12,13 +12,19 @@ export const ChatRatingModal = ({
   onSubmit: (rating: number) => void;
 }) => {
   const [rating, setRating] = useState(0);
+  const [feedback, setFeedback] = useState("");
 
   const handleRatingChange = (event: any) => {
     setRating(parseFloat(event.target.value));
   };
 
+  const handleFeedbackChange = (event: any) => {
+    setFeedback(event.target.value);
+  };
+
   const handleSubmit = () => {
     console.log("Rating submitted: ", rating);
+    console.log("Feedback submitted: ", feedback);
     onSubmit(rating);
     onClose();
   };
@@ -47,24 +53,33 @@ export const ChatRatingModal = ({
     >
       <Modal show={isOpen} onHide={onClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Rate Our Service</Modal.Title>
+          <Modal.Title>Feedback Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Please rate our service</p>
-          <Box
-            sx={{
-              width: 200,
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Rating
-              value={rating}
-              onChange={handleRatingChange}
-              precision={0.5}
-              getLabelText={getLabelText}
-            />
-          </Box>
+          <Form>
+            <Form.Group className="mb-3">
+              <p>Rate Our Service</p>
+              <Box
+                sx={{
+                  width: 200,
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Rating
+                  value={rating}
+                  onChange={handleRatingChange}
+                  precision={0.5}
+                  getLabelText={getLabelText}
+                />
+              </Box>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Where can we improve?</Form.Label>
+              <Form.Control as="textarea" rows={3} value={feedback} onChange={handleFeedbackChange} />
+            </Form.Group>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onClose}>
