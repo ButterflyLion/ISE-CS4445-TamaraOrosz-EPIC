@@ -60,6 +60,7 @@ function RegisterFob() {
 
   const handleInputChange = (event: any) => {
     const { name, value } = event.target;
+    
     setState((prevProps) => ({
       ...prevProps,
       [name]: value,
@@ -130,9 +131,7 @@ function RegisterFob() {
     });
   };
 
-  (() => {
-    "use strict";
-
+  useEffect(() => {
     const forms = document.querySelectorAll(".needs-validation");
 
     Array.prototype.forEach.call(forms, (form) => {
@@ -149,7 +148,7 @@ function RegisterFob() {
         false
       );
     });
-  })();
+  }, []);
 
   // Uses this library: https://github.com/jackocnr/intl-tel-input/blob/master/README.md#initialisation-options
   // View Storybook for it here: https://intl-tel-input.com/storybook/?path=/docs/intltelinput--initialvalue

@@ -1,32 +1,59 @@
-import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { Container, Form, Button } from "react-bootstrap";
 import "../styles/Forms.css";
 
-function Signup() {
-  const [state, setState] = useState({
-    fName: "",
-    lName: "",
-    email: "",
-    password: "",
-    tNcAccepted: "",
-  });
+const initialState = {
+  fName: "",
+  lName: "",
+  email: "",
+  password: "",
+  tNcAccepted: false,
+};
 
-  const handleInputChange = (event: { target: { name: any; value: any } }) => {
+function Signup() {
+  const [state, setState] = useState(initialState);
+  const [result, setResult] = useState("");
+
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target;
+
     setState((prevProps) => ({
       ...prevProps,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    console.log("Submitting form");
+  const handleSubmit = async (event: any) => {
+    event?.preventDefault();
+    console.log("Submitting form...");
+
+    try {
+      const userId = uuidv4();
+      const response = await axios.put(
+        "https://zz3sq37nl4.execute-api.us-east-1.amazonaws.com/dev/register-user",
+        JSON.stringify({
+          userId: userId,
+          fName: state.fName,
+          lName: state.lName,
+          email: state.email,
+          password: state.password,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+      setResult("There was an error creating your account.");
+    }
   };
 
-  (() => {
-    "use strict";
-
+  useEffect(() => {
     const forms = document.querySelectorAll(".needs-validation");
 
     Array.prototype.forEach.call(forms, (form) => {
@@ -43,33 +70,36 @@ function Signup() {
         false
       );
     });
-  })();
+  }, []);
 
   return (
     <Container className="d-flex flex-column align-items-center container-narrow">
       <img alt="logo" src="/FestiFob-logo.svg" width="60px" />
       <h1>Create an account</h1>
       <p>Enter your name and email address to create a new account.</p>
-      <form
+      <Form
         className="needs-validation w-md-50"
         onSubmit={handleSubmit}
         noValidate
+        id="signup-form"
       >
-        <div className="form-group">
-          <label className="form-label">First name</label>
-          <input
+        <Form.Group>
+          <Form.Label className="form-label">First name</Form.Label>
+          <Form.Control
             type="text"
             name="fName"
+            id="inputFirstName"
             className="form-control"
             placeholder="Enter first name"
             value={state.fName}
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div className="form-group">
-          <label className="form-label">Last name</label>
-          <input
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label className="form-label">Last name</Form.Label>
+          <Form.Control
             type="text"
             name="lName"
             className="form-control"
@@ -78,12 +108,13 @@ function Signup() {
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="validationEmailAddress" className="form-label">
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label htmlFor="validationEmailAddress" className="form-label">
             Email address
-          </label>
-          <input
+          </Form.Label>
+          <Form.Control
             type="email"
             name="email"
             className="form-control"
@@ -96,12 +127,13 @@ function Signup() {
           <div className="invalid-feedback">
             Please provide a valid email address.
           </div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="validationPassword" className="form-label">
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label htmlFor="validationPassword" className="form-label">
             Password
-          </label>
-          <input
+          </Form.Label>
+          <Form.Control
             type="password"
             name="password"
             className="form-control"
@@ -115,31 +147,32 @@ function Signup() {
             <div className="invalid-feedback">
               Please provide a strong password.
             </div>
-
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="invalidCheck"
-                required
-              />
-              <label className="form-check-label" htmlFor="invalidCheck">
-                Agree to terms and conditions
-              </label>
-              <div className="invalid-feedback">
-                You must agree to the T&Cs.
-              </div>
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Sign Up
-            </button>
-            <p>
-              Already have an account? <a href="/login">Log in here</a>
-            </p>
           </div>
-        </div>
-      </form>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Check
+            type="checkbox"
+            name="tNcAccepted"
+            id="invalidCheck"
+            label="Agree to terms and conditions"
+            value=""
+            onChange={() => setState({ ...state, tNcAccepted: !state.tNcAccepted })}
+            required
+          />
+          <div className="invalid-feedback">You must agree to the T&Cs.</div>
+        </Form.Group>
+
+        <Form.Group>
+          <Button type="submit" variant="primary" className="btn btn-primary" disabled={!state.tNcAccepted}>
+            Sign Up
+          </Button>
+          <p>
+            Already have an account? <a href="/login">Log in here</a>
+          </p>
+        </Form.Group>
+      </Form>
+      <p>{result}</p>
     </Container>
   );
 }
