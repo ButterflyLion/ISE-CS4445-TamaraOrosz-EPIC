@@ -11,6 +11,7 @@ export type UserBasicInfo = {
   email: string;
   fName: string;
   lName: string;
+  userRole: string;
 };
 
 type Name = {

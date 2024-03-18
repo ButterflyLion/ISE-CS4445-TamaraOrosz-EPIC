@@ -38,6 +38,7 @@ function Login() {
           email: state.email,
           fName: response.data.fName,
           lName: response.data.lName,
+          userRole: response.data.userRole,
         };
         login(userData);
       }

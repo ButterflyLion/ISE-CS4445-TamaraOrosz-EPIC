@@ -40,12 +40,13 @@ function Signup() {
       );
       console.log(response);
       setResult("Account created successfully.");
-      if (response.data == `Put user ${state.fName}`) {
+      if (response.data.created == `Put user ${state.fName}`) {
         const userData = {
           userId: userId,
           email: state.email,
           fName: state.fName,
           lName: state.lName,
+          userRole: response.data.userRole,
         };
         login(userData);
       }
