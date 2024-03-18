@@ -29,11 +29,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     return shaObj.getHash("HEX");
   };
 
-  const signup = (userData: UserBasicInfo) => {
-    setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
-  };
-
   const login = (userData: UserBasicInfo) => {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));

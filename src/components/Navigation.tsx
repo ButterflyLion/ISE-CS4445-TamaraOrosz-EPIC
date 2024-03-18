@@ -63,6 +63,7 @@ const Navigation = () => {
               <CDBIcon className="me-2" icon="user" />
               Log In
             </Nav.Link>
+            <Nav.Link href="/signup">Sign Up</Nav.Link>
             <Button variant="primary" onClick={handleShow}>
               Log out
             </Button>

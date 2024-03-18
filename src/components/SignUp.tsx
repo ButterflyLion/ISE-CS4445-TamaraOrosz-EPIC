@@ -13,7 +13,7 @@ const initialState = {
 };
 
 function Signup() {
-  const { generateUserId } = useUser();
+  const { generateUserId, login } = useUser();
   const [state, setState] = useState(initialState);
   const [result, setResult] = useState("");
 
@@ -40,6 +40,16 @@ function Signup() {
       );
       console.log(response);
       setResult("Account created successfully.");
+      if (response.data == `Put user ${state.fName}`) {
+        const userData = {
+          userId: userId,
+          email: state.email,
+          fName: state.fName,
+          lName: state.lName,
+        };
+        login(userData);
+      }
+      setResult("Logged in successfully.");
     } catch (error) {
       console.error(error);
       setResult("There was an error creating your account.");
