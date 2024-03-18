@@ -11,8 +11,10 @@ export type UserBasicInfo = {
   email: string;
   fName: string;
   lName: string;
-  userRole: string;
+  userRole: UserRole;
 };
+
+type UserRole = "admin" | "regular user";
 
 type Name = {
   fName: string;

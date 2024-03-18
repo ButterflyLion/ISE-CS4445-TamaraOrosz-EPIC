@@ -22,7 +22,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const generateUserId = (email: string, password: string): string => {
+  const generateUserId = (email: string, password: string) => {
     const data = email + ":" + password;
     const shaObj = new jsSHA("SHA-256", "TEXT");
     shaObj.update(data);

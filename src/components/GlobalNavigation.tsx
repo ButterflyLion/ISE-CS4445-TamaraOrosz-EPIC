@@ -13,6 +13,7 @@ import RegisterFob from "./RegisterFob";
 import LandingPage from "./LandingPage";
 import ProductPage from "./ProductPage";
 import Chat from "./Chat";
+import AdminView from "./AdminView";
 
 function GlobalNavigation() {
   return (
@@ -29,6 +30,7 @@ function GlobalNavigation() {
           <Route path="*" element={<h1>Not Found</h1>} />
         </Route>
         <Route element={<ProtectedLayout />}>
+          <Route path="/admin-view" element={<AdminView />} />
           <Route path="/dashboard" element={<Dashboard config={config} />} />
           <Route path="/news" element={<News />} />
           <Route path="/register-fob" element={<RegisterFob />} />

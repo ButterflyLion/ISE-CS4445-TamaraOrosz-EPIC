@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUser } from "../features/auth/UserContext";
 import axios from "axios";
 import { Container, Form, Button } from "react-bootstrap";
@@ -49,45 +49,25 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    const forms = document.querySelectorAll(".needs-validation");
-
-    Array.prototype.forEach.call(forms, (form) => {
-      form.addEventListener(
-        "submit",
-        (event: any) => {
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-
-          form.classList.add("was-validated");
-        },
-        false
-      );
-    });
-  }, []);
-
   return (
     <Container className="d-flex flex-column align-items-center container-narrow">
       <img alt="logo" src="FestiFob-logo.svg" width="60px" />
       <h1>Login</h1>
       <p>Enter your email address and password to log in.</p>
       <Form
-        className="needs-validation w-md-50"
+        className="w-md-50"
         onSubmit={handleLogin}
         noValidate
         id="login-form"
       >
         <Form.Group>
-          <Form.Label htmlFor="validationEmailAddress" className="form-label">
+          <Form.Label className="form-label">
             Email address
           </Form.Label>
           <Form.Control
             type="email"
             name="email"
             className="form-control"
-            id="validationEmailAddress"
             placeholder="Enter email"
             value={state.email}
             onChange={(e) => setState({ ...state, email: e.target.value })}
@@ -96,14 +76,13 @@ function Login() {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor="validationPassword" className="form-label">
+          <Form.Label className="form-label">
             Password
           </Form.Label>
           <Form.Control
             type="password"
             name="password"
             className="form-control"
-            id="validationPassword"
             placeholder="Enter password"
             value={state.password}
             onChange={(e) => {

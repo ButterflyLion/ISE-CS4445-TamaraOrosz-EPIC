@@ -35,6 +35,7 @@ const LogOut = (props: any) => {
 };
 
 const Navigation = () => {
+  const { user } = useUser();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -56,17 +57,18 @@ const Navigation = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav>
             <Nav.Link href="/about">About</Nav.Link>
-            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-            <Nav.Link href="/news">News</Nav.Link>
-            <Nav.Link href="/register-fob">Register Fob</Nav.Link>
-            <Nav.Link href="/login">
+            {user && user.userRole === "admin" && <Nav.Link href="/admin-view">Admin View</Nav.Link>}
+            {user && user.userRole === "regular user" && <Nav.Link href="/dashboard">Dashboard</Nav.Link>}
+            {user && <Nav.Link href="/news">News</Nav.Link>}
+            {user && user.userRole === "regular user" && <Nav.Link href="/register-fob">Register Fob</Nav.Link>}
+            {!user && <Nav.Link href="/login">
               <CDBIcon className="me-2" icon="user" />
               Log In
-            </Nav.Link>
-            <Nav.Link href="/signup">Sign Up</Nav.Link>
-            <Button variant="primary" onClick={handleShow}>
+            </Nav.Link>}
+            {!user && <Nav.Link href="/signup">Sign Up</Nav.Link>}
+            {user && <Button variant="primary" onClick={handleShow}>
               Log out
-            </Button>
+            </Button>}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
