@@ -1,68 +1,129 @@
-import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { useUser } from "../features/auth/UserContext";
+import axios from "axios";
+import { Container, Form, Button } from "react-bootstrap";
 import "../styles/Forms.css";
 
 function Login() {
+  const { login, generateUserId } = useUser();
   const [state, setState] = useState({
     email: "",
     password: "",
   });
+  const [result, setResult] = useState("");
 
-  const handleInputChange = (event: { target: { name: any; value: any } }) => {
-    const { name, value } = event.target;
-    setState((prevProps) => ({
-      ...prevProps,
-      [name]: value,
-    }));
+  const handleLogin = async (event: any) => {
+    event?.preventDefault();
+    console.log("Logging in...");
+
+    try {
+      const userId = generateUserId(state.email, state.password);
+      const response = await axios.post(
+        `${process.env.VITE_BACKEND_BASE_URL}/login`,
+        JSON.stringify({
+          userId: userId,
+          email: state.email,
+          password: state.password,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+      if (response.data.found == true && response.data.matches == true) {
+        const userData = {
+          userId: userId,
+          email: state.email,
+          fName: response.data.fName,
+          lName: response.data.lName,
+        };
+        login(userData);
+      }
+      setResult("Logged in successfully.");
+    } catch (error) {
+      console.error(error);
+      setResult("There was an error logging in.");
+    }
   };
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    console.log(state);
-  };
+  useEffect(() => {
+    const forms = document.querySelectorAll(".needs-validation");
+
+    Array.prototype.forEach.call(forms, (form) => {
+      form.addEventListener(
+        "submit",
+        (event: any) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  }, []);
 
   return (
     <Container className="d-flex flex-column align-items-center container-narrow">
       <img alt="logo" src="FestiFob-logo.svg" width="60px" />
       <h1>Login</h1>
       <p>Enter your email address and password to log in.</p>
-      <form className="w-md-50" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="form-label">Email address</label>
-          <input
+      <Form
+        className="needs-validation w-md-50"
+        onSubmit={handleLogin}
+        noValidate
+        id="login-form"
+      >
+        <Form.Group>
+          <Form.Label htmlFor="validationEmailAddress" className="form-label">
+            Email address
+          </Form.Label>
+          <Form.Control
             type="email"
             name="email"
             className="form-control"
+            id="validationEmailAddress"
             placeholder="Enter email"
             value={state.email}
-            onChange={handleInputChange}
+            onChange={(e) => setState({ ...state, email: e.target.value })}
             required
           />
-        </div>
-        <div className="form-group">
-          <label className="form-label">Password</label>
-          <input
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label htmlFor="validationPassword" className="form-label">
+            Password
+          </Form.Label>
+          <Form.Control
             type="password"
             name="password"
             className="form-control"
+            id="validationPassword"
             placeholder="Enter password"
             value={state.password}
-            onChange={handleInputChange}
+            onChange={(e) => {
+              setState({ ...state, password: e.target.value });
+            }}
             required
           />
-        </div>
-        <div className="d-flex flex-column">
+        </Form.Group>
+
+        <Form.Group className="d-flex flex-column">
           <a href="/forgot-password" className="mb-3">
             Forgot password?
           </a>
-          <button type="submit" className="btn btn-primary">
+          <Button type="submit" className="btn btn-primary">
             Sign In
-          </button>
+          </Button>
           <p>
             Don't have an account? <a href="/signup">Sign up here</a>
           </p>
-        </div>
-      </form>
+        </Form.Group>
+      </Form>
     </Container>
   );
 }

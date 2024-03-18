@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { useUser } from "../features/auth/UserContext";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { Container, Form, Button } from "react-bootstrap";
 import "../styles/Forms.css";
 
@@ -13,26 +13,18 @@ const initialState = {
 };
 
 function Signup() {
+  const { generateUserId } = useUser();
   const [state, setState] = useState(initialState);
   const [result, setResult] = useState("");
 
-  const handleInputChange = (event: any) => {
-    const { name, value } = event.target;
-
-    setState((prevProps) => ({
-      ...prevProps,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (event: any) => {
+  const handleSignup = async (event: any) => {
     event?.preventDefault();
     console.log("Submitting form...");
 
     try {
-      const userId = uuidv4();
+      const userId = generateUserId(state.email, state.password);
       const response = await axios.put(
-        "https://zz3sq37nl4.execute-api.us-east-1.amazonaws.com/dev/register-user",
+        `${process.env.VITE_BACKEND_BASE_URL}/register-user`,
         JSON.stringify({
           userId: userId,
           fName: state.fName,
@@ -47,6 +39,7 @@ function Signup() {
         }
       );
       console.log(response);
+      setResult("Account created successfully.");
     } catch (error) {
       console.error(error);
       setResult("There was an error creating your account.");
@@ -79,7 +72,7 @@ function Signup() {
       <p>Enter your name and email address to create a new account.</p>
       <Form
         className="needs-validation w-md-50"
-        onSubmit={handleSubmit}
+        onSubmit={handleSignup}
         noValidate
         id="signup-form"
       >
@@ -92,7 +85,7 @@ function Signup() {
             className="form-control"
             placeholder="Enter first name"
             value={state.fName}
-            onChange={handleInputChange}
+            onChange={(e) => setState({ ...state, fName: e.target.value })}
             required
           />
         </Form.Group>
@@ -105,7 +98,7 @@ function Signup() {
             className="form-control"
             placeholder="Enter last name"
             value={state.lName}
-            onChange={handleInputChange}
+            onChange={(e) => setState({ ...state, lName: e.target.value })}
             required
           />
         </Form.Group>
@@ -121,7 +114,7 @@ function Signup() {
             id="validationEmailAddress"
             placeholder="Enter email"
             value={state.email}
-            onChange={handleInputChange}
+            onChange={(e) => setState({ ...state, email: e.target.value })}
             required
           />
           <div className="invalid-feedback">
@@ -140,7 +133,7 @@ function Signup() {
             id="validationPassword"
             placeholder="Enter password"
             value={state.password}
-            onChange={handleInputChange}
+            onChange={(e) => setState({ ...state, password: e.target.value })}
             required
           />
           <div className="d-flex flex-column mb-3">
@@ -157,14 +150,21 @@ function Signup() {
             id="invalidCheck"
             label="Agree to terms and conditions"
             value=""
-            onChange={() => setState({ ...state, tNcAccepted: !state.tNcAccepted })}
+            onChange={() =>
+              setState({ ...state, tNcAccepted: !state.tNcAccepted })
+            }
             required
           />
           <div className="invalid-feedback">You must agree to the T&Cs.</div>
         </Form.Group>
 
         <Form.Group>
-          <Button type="submit" variant="primary" className="btn btn-primary" disabled={!state.tNcAccepted}>
+          <Button
+            type="submit"
+            variant="primary"
+            className="btn btn-primary"
+            disabled={!state.tNcAccepted}
+          >
             Sign Up
           </Button>
           <p>
@@ -172,7 +172,6 @@ function Signup() {
           </p>
         </Form.Group>
       </Form>
-      <p>{result}</p>
     </Container>
   );
 }
