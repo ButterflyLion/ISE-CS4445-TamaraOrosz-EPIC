@@ -9,7 +9,7 @@ function AdminView() {
   const handleGetAllUsers = async () => {
     try {
       const response = await axios.get(
-        `${process.env.VITE_BACKEND_BASE_URL}/registered-users`,
+        `${process.env.VITE_BACKEND_WEB_APP_BASE_URL}/registered-users`,
       );
       console.log(response);
       setUsers(response.data);

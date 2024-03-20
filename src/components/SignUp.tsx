@@ -24,7 +24,7 @@ function Signup() {
     try {
       const userId = generateUserId(state.email, state.password);
       const response = await axios.put(
-        `${process.env.VITE_BACKEND_BASE_URL}/register-user`,
+        `${process.env.VITE_BACKEND_WEB_APP_BASE_URL}/register-user`,
         JSON.stringify({
           userId: userId,
           fName: state.fName,

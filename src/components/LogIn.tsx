@@ -19,7 +19,7 @@ function Login() {
     try {
       const userId = generateUserId(state.email, state.password);
       const response = await axios.post(
-        `${process.env.VITE_BACKEND_BASE_URL}/login`,
+        `${process.env.VITE_BACKEND_WEB_APP_BASE_URL}/login`,
         JSON.stringify({
           userId: userId,
           email: state.email,
