@@ -24,12 +24,15 @@ export const ChatCard = ({ user, handleLogout }: { user: any, handleLogout: Func
   const postMessage = () => {
     if (message.trim() !== "") {
       const date = new Date();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
       const newMessage = {
         id: uid(),
         message: message.trim(),
         userId: user.id,
         userName: user.name,
-        time: `${date.getHours()}:${date.getMinutes()}`,
+        time: `${hours}:${formattedMinutes}`,
       };
       dispatch(addMessage(newMessage));
     }
