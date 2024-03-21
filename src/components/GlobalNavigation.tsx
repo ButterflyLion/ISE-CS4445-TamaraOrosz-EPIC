@@ -30,7 +30,7 @@ function GlobalNavigation() {
           <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<h1>Not Found</h1>} />
           {user && user.userRole == "admin" && <Route path="/admin-view" element={<AdminView />} />}
-          {user && user.userRole === "regular user" && <Route path="/dashboard" element={<Dashboard config={config} />} />}
+          {user && user.userRole === "regular user" && <Route path="/dashboard" element={<Dashboard />} />}
           {user && <Route path="/news" element={<News />} />}
           {user && user.userRole === "regular user" && <Route path="/register-fob" element={<RegisterFob />} />}
       </Routes>
