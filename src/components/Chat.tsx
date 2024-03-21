@@ -3,15 +3,20 @@ import { ChatCard } from "./chat/ChatCard";
 import Header from "./chat/Header";
 import ChatLogin from "./chat/ChatLogin";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import "../styles/Chat.css"
+import "../styles/Chat.css";
 import { v4 as uid } from "uuid";
-import { addUser, removeUser } from "../features/messages/messaging-users-slice";
+import {
+  addUser,
+  removeUser,
+} from "../features/messages/messaging-users-slice";
 import { removeAllMessages } from "../features/messages/messages-slice";
 import { ChatRatingModal } from "./chat/ChatRatingModal";
 
 function Chat() {
   const dispatch = useAppDispatch();
-  const messagingUsersState = useAppSelector((state: any) => state.messagingusers);
+  const messagingUsersState = useAppSelector(
+    (state: any) => state.messagingusers
+  );
   const messagingusers = messagingUsersState.users;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
@@ -20,7 +25,7 @@ function Chat() {
   const handleLogin = (name: string) => {
     if (name.trim() !== "") {
       const user = messagingusers?.find((user: any) => user.name === name);
-      let requestedUser: { id?: string, name: string } = { name };
+      let requestedUser: { id?: string; name: string } = { name };
 
       if (user) {
         requestedUser.id = user.id;
@@ -34,7 +39,7 @@ function Chat() {
   };
 
   const handleLogout = () => {
-    if(isLoggedIn) {
+    if (isLoggedIn) {
       setUser({});
       setIsLoggedIn(false);
       dispatch(removeUser(user));
@@ -55,14 +60,18 @@ function Chat() {
   return (
     <div className="Chat">
       <Header />
-      <div className="container" style={{ boxShadow: 'none', border: 'none' }}>
+      <div className="container" style={{ boxShadow: "none", border: "none" }}>
         {isLoggedIn ? (
           <ChatCard user={user} handleLogout={handleLogout} />
         ) : (
           <ChatLogin handleLogin={handleLogin} />
         )}
       </div>
-      <ChatRatingModal isOpen={showRatingModal} onClose={onClose} onSubmit={handleRatingSubmit} />
+      <ChatRatingModal
+        isOpen={showRatingModal}
+        onClose={onClose}
+        onSubmit={handleRatingSubmit}
+      />
     </div>
   );
 }
