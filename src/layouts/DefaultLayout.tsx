@@ -4,13 +4,10 @@ import { useUser } from "../features/auth/UserContext";
 const DefaultLayout = () => {
   const { user } = useUser();
 
-  if (user !== null && user.userRole === "regular user") {
-    return <Navigate replace to={"/dashboard"} />;
+  if (user === null) {
+    return <Navigate replace to={"/login"} />;
   }
-  else if (user !== null && user.userRole === "admin") {
-    return <Navigate replace to={"/admin-view"} />;
-  }
-
+  
   return (
     <>
       <Outlet />

@@ -1,15 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/auth/UserContext";
 import { CDBIcon } from "cdbreact";
 import { Navbar, Nav, Button, Modal } from "react-bootstrap";
 
 const LogOut = (props: any) => {
+  const navigate = useNavigate();
   const { logout } = useUser();
 
   const handleLogout = () => {
     console.log("Logging out...");
     logout();
     props.handleClose();
+    navigate("/");
   };
 
   return (

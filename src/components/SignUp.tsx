@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/auth/UserContext";
 import axios from "axios";
 import { Container, Form, Button } from "react-bootstrap";
@@ -13,6 +14,7 @@ const initialState = {
 };
 
 function Signup() {
+  const navigate = useNavigate();
   const { generateUserId, login } = useUser();
   const [state, setState] = useState(initialState);
   const [result, setResult] = useState("");
@@ -49,8 +51,19 @@ function Signup() {
           userRole: response.data.userRole,
         };
         login(userData);
+        setResult("Logged in successfully.");
+
+        if (response.data.userRole == "admin") {
+          navigate("/admin-view", { replace: true });
+        } else if (response.data.userRole == "regular user") {
+          navigate("/register-fob", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
+      } else {
+        setResult("Invalid email or password.");
       }
-      setResult("Logged in successfully.");
+
       console.log(result);
     } catch (error) {
       console.error(error);

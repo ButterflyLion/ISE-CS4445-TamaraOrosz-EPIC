@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../features/auth/UserContext";
 import axios from "axios";
 import { Container, Form, Button } from "react-bootstrap";
 import "../styles/Forms.css";
 
 function Login() {
+  const navigate = useNavigate();
   const { login, generateUserId } = useUser();
   const [state, setState] = useState({
     email: "",
@@ -41,8 +43,18 @@ function Login() {
           userRole: response.data.userRole,
         };
         login(userData);
+        setResult("Logged in successfully.");
+
+        if (response.data.userRole == "admin") {
+          navigate("/admin-view", { replace: true });
+        } else if (response.data.userRole == "regular user"){
+          navigate("/dashboard", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
+      } else {
+        setResult("Invalid email or password.");
       }
-      setResult("Logged in successfully.");
       console.log(result);
     } catch (error) {
       console.error(error);

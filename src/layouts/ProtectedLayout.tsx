@@ -5,7 +5,11 @@ const ProtectedLayout = () => {
   const { user } = useUser();
 
   if (user === null) {
-    return <Navigate replace to={"/login"} />;
+    return <Navigate replace to={"/"} />;
+  } else if (user.userRole === "admin") {
+    return <Navigate replace to={"/admin-view"} />;
+  } else if (user.userRole === "regular user") {
+    return <Navigate replace to={"/dashboard"} />;
   }
 
   return (
