@@ -6,6 +6,11 @@ function ChatToast() {
   const [show, setShow] = useState(true);
   const toggleShow = () => setShow(!show);
 
+  const date = new Date();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
   return (
     <ToastContainer position="top-end" className="p-3" style={{ zIndex: 1 }}>
       <Toast onClose={toggleShow} show={show}>
@@ -17,7 +22,7 @@ function ChatToast() {
             alt=""
           />
           <strong className="me-auto">FestiFob Customer Support</strong>
-          <small>{`${new Date().getHours()}:${new Date().getMinutes()}`}</small>
+          <small>{`${hours}:${formattedMinutes}`}</small>
         </Toast.Header>
         <Toast.Body>
           Hi there! How can we help you today?
