@@ -19,8 +19,8 @@ function Chat() {
 
   const handleLogin = (name: string) => {
     if (name.trim() !== "") {
-      const user = messagingusers?.find((user) => user.name === name);
-      let requestedUser = { name };
+      const user = messagingusers?.find((user: any) => user.name === name);
+      let requestedUser: { id?: string, name: string } = { name };
 
       if (user) {
         requestedUser.id = user.id;

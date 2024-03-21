@@ -43,6 +43,7 @@ function Login() {
         login(userData);
       }
       setResult("Logged in successfully.");
+      console.log(result);
     } catch (error) {
       console.error(error);
       setResult("There was an error logging in.");

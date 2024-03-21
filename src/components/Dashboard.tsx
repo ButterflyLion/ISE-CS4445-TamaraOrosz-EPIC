@@ -28,6 +28,7 @@ export default function Dashboard(props: any) {
       );
       console.log(response);
       setData(response.data);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }

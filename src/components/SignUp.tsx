@@ -51,6 +51,7 @@ function Signup() {
         login(userData);
       }
       setResult("Logged in successfully.");
+      console.log(result);
     } catch (error) {
       console.error(error);
       setResult("There was an error creating your account.");
