@@ -1,7 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { newsApi } from "../features/news/news-api-slice";
-import counterReducer from "../features/counter/counter-slice";
 import { messagesReducer } from "../features/messages/messages-slice";
 import { messagesUsersReducer } from "../features/messages/messaging-users-slice";
 import {
@@ -21,7 +20,6 @@ export const persistConfig = {
 
 const rootReducer = combineReducers({
   [newsApi.reducerPath]: newsApi.reducer,
-  counter: counterReducer,
   messagingusers: messagesUsersReducer,
   messages: messagesReducer,
 });
