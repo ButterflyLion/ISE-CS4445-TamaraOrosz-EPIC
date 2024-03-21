@@ -47,8 +47,9 @@ export default function Dashboard() {
       ...data.map((item) => new Date(item["date-time"]).getTime())
     );    
     
-    Highcharts.chart("container", {
+    Highcharts.chart({
       chart: {
+        renderTo: "container",
         type: "spline",
         scrollablePlotArea: {
           minWidth: 600,
@@ -77,7 +78,6 @@ export default function Dashboard() {
         },
         minorGridLineWidth: 0,
         gridLineWidth: 0,
-        alternateGridColor: null,
         plotBands: [
           {
             from: 0,
@@ -143,6 +143,7 @@ export default function Dashboard() {
       },
       series: [
         {
+          type: 'spline',
           name: "Sound level",
           data: data.map((item) => [
             new Date(item["date-time"]).getTime(),
