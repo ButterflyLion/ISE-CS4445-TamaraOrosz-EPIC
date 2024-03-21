@@ -1,30 +1,17 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + ReduxJS + Axios + Bootstrap
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This web application was built for module CS4445 of ISE in Year 2.
 
-Currently, two official plugins are available:
+This project adapted components from:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Search component](https://github.com/Timonwa/react-search-component/tree/main)
+- [Chat component](https://github.com/Ankomahene/simple-chat-app/tree/dev)
+- [Highcharts](https://www.highcharts.com/demo/highcharts/spline-plot-bands?redirect-to-codepen)
 
-## Expanding the ESLint configuration
+# Components
+This web app is built with Material UI components, React Bootstrap components and Contrast Design Bootstrap.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# Run Project
+To run this project, clone it down to your local repository. <br>
+Run `npm i` to install all the dependencies. <br>
+To start the web app run `npm run dev` and the application will open on `http://localhost:5173/`.
